@@ -1,17 +1,17 @@
 const assert = require('assert');
 const fetch = require('node-fetch');
 
-suite('Add Students page', function() {
-  test('Page title', async function() {
+suite('Add Students page', function () {
+  test('Page title', async function () {
     let res = await fetch("http://localhost:8888/add-student");
     let body = await res.text();
     assert.ok(body.includes("<h1>Register New Student</h1>"));
   });
 
-  test('Students HTML form', async function() {
+  test('Students HTML form', async function () {
     let res = await fetch("http://localhost:8888/add-student");
     let body = await res.text();
-    
+
     let nameFieldFound = body.includes('<input id="name" type="text" name="name"/>');
     assert.ok(nameFieldFound, "Field 'name' is missing");
 
@@ -20,9 +20,10 @@ suite('Add Students page', function() {
 
     let buttonAddFound = body.includes('<button type="submit">Add</button>');
     assert.ok(buttonAddFound, "Button [Add] is missing");
+    //dsadas
   });
 
-  test('Add valid student', async function() {
+  test('Add valid student', async function () {
     let res = await fetch(
       "http://localhost:8888/add-student",
       {
@@ -35,12 +36,12 @@ suite('Add Students page', function() {
     );
     let body = await res.text();
     let studentsReturned = body.includes(
-		"<ul><li>Steve (steve@gmail.com)</li><li>Tina (tina@yahoo.com)</li><li>Peter (peter@gmail.com)</li></ul>");
+      "<ul><li>Steve (steve@gmail.com)</li><li>Tina (tina@yahoo.com)</li><li>Peter (peter@gmail.com)</li></ul>");
     assert.ok(studentsReturned, "Add student failed");
   });
 
-  test('Add invalid student', async function() {
-     let res = await fetch(
+  test('Add invalid student', async function () {
+    let res = await fetch(
       "http://localhost:8888/add-student",
       {
         method: 'POST',
@@ -56,7 +57,7 @@ suite('Add Students page', function() {
 
     res = await fetch("http://localhost:8888/");
     body = await res.text();
-	assert.ok(body.includes("Registered students: <b>2</b>"), 
-		"Add invalid student should not change the students count");
+    assert.ok(body.includes("Registered students: <b>2</b>"),
+      "Add invalid student should not change the students count");
   });
 });
