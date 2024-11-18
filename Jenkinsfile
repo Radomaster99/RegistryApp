@@ -31,9 +31,9 @@ pipeline{
         stage("Starting application, then run tests"){
             steps{
                 script{
-                    sh 'npm start &'
-                    sh 'wait-on https://localhost:8090'
-                    sh 'npm test'
+                    bat 'npm start &'
+                    bat 'wait-on https://localhost:8090'
+                    bat 'npm test'
                 }
             }
         }
